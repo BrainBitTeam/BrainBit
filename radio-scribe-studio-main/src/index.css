@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Dark military radio theme */
+    --background: 220 25% 8%;
+    --foreground: 200 20% 90%;
+
+    --card: 220 20% 12%;
+    --card-foreground: 200 20% 90%;
+
+    --popover: 220 20% 12%;
+    --popover-foreground: 200 20% 90%;
+
+    --primary: 180 70% 45%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 200 20% 85%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 200 10% 55%;
+
+    --accent: 120 60% 45%;
+    --accent-foreground: 220 25% 8%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 20% 20%;
+    --input: 220 15% 18%;
+    --ring: 180 70% 45%;
+
+    --radius: 0.25rem;
+
+    /* Custom radio panel colors */
+    --panel-bg: 220 20% 10%;
+    --panel-border: 200 15% 25%;
+    --panel-glow: 180 70% 45%;
+    --indicator-active: 120 70% 50%;
+    --indicator-warning: 45 90% 50%;
+    --indicator-error: 0 70% 50%;
+    --text-dim: 200 10% 45%;
+    --display-bg: 220 30% 6%;
+    --meter-fill: 100 70% 45%;
+  }
+
+  .dark {
+    --background: 220 25% 8%;
+    --foreground: 200 20% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Rajdhani', sans-serif;
+  }
+}
+
+@layer components {
+  .panel-card {
+    @apply bg-card border border-border rounded-sm p-4;
+    box-shadow: 
+      inset 0 1px 0 hsl(var(--panel-border) / 0.3),
+      0 4px 20px hsl(220 30% 5% / 0.5);
+  }
+
+  .panel-display {
+    @apply bg-[hsl(var(--display-bg))] rounded-sm px-4 py-2 font-mono;
+    box-shadow: inset 0 2px 8px hsl(220 30% 3% / 0.8);
+  }
+
+  .panel-label {
+    @apply text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2;
+  }
+
+  .panel-value {
+    @apply text-2xl font-mono text-primary;
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+
+  .indicator-light {
+    @apply w-3 h-3 rounded-full;
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  .indicator-active {
+    @apply bg-[hsl(var(--indicator-active))];
+    box-shadow: 0 0 12px hsl(var(--indicator-active));
+  }
+
+  .indicator-warning {
+    @apply bg-[hsl(var(--indicator-warning))];
+    box-shadow: 0 0 12px hsl(var(--indicator-warning));
+  }
+
+  .indicator-inactive {
+    @apply bg-muted-foreground/30;
+    box-shadow: none;
+  }
+
+  .meter-bar {
+    @apply h-4 rounded-sm;
+    background: linear-gradient(
+      to right,
+      hsl(var(--meter-fill)),
+      hsl(80 70% 50%),
+      hsl(45 90% 50%)
+    );
+    box-shadow: 0 0 8px hsl(var(--meter-fill) / 0.5);
+  }
+
+  .control-button {
+    @apply px-4 py-2 text-sm font-semibold uppercase tracking-wider;
+    @apply bg-secondary border border-border rounded-sm;
+    @apply transition-all duration-150;
+  }
+
+  .control-button:hover {
+    @apply bg-muted;
+  }
+
+  .control-button.active {
+    @apply bg-primary text-primary-foreground;
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
+  }
+
+  .tab-button {
+    @apply px-6 py-3 text-sm font-semibold uppercase tracking-widest;
+    @apply text-muted-foreground transition-all duration-200;
+    @apply border-b-2 border-transparent;
+  }
+
+  .tab-button:hover {
+    @apply text-foreground;
+  }
+
+  .tab-button.active {
+    @apply text-primary border-primary;
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+
+  .transcription-text {
+    @apply font-mono text-lg leading-relaxed;
+    text-shadow: 0 0 2px hsl(var(--foreground) / 0.3);
+  }
+
+  .waveform-bar {
+    @apply bg-primary rounded-full;
+    box-shadow: 0 0 6px hsl(var(--primary) / 0.6);
+    transition: height 0.05s ease-out;
+  }
+
+  .record-button {
+    @apply w-16 h-16 rounded-full flex items-center justify-center;
+    @apply bg-destructive text-destructive-foreground;
+    @apply transition-all duration-200;
+    box-shadow: 
+      0 0 0 4px hsl(var(--background)),
+      0 0 0 6px hsl(var(--destructive) / 0.3),
+      0 0 30px hsl(var(--destructive) / 0.3);
+  }
+
+  .record-button:hover {
+    transform: scale(1.05);
+    box-shadow: 
+      0 0 0 4px hsl(var(--background)),
+      0 0 0 6px hsl(var(--destructive) / 0.5),
+      0 0 40px hsl(var(--destructive) / 0.5);
+  }
+
+  .record-button.recording {
+    animation: pulse-glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 0 4px hsl(var(--background)),
+        0 0 0 6px hsl(var(--destructive) / 0.3),
+        0 0 30px hsl(var(--destructive) / 0.3);
+    }
+    50% {
+      box-shadow: 
+        0 0 0 4px hsl(var(--background)),
+        0 0 0 8px hsl(var(--destructive) / 0.6),
+        0 0 50px hsl(var(--destructive) / 0.6);
+    }
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
+  }
+
+  .blink {
+    animation: blink 1s ease-in-out infinite;
+  }
+}
