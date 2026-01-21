@@ -1,47 +1,28 @@
-import { Wifi, WifiOff, Users, AlertTriangle } from 'lucide-react';
-import { Indicator } from './RadioPanel';
+import { Wifi, WifiOff, AlertTriangle } from 'lucide-react';
 
 interface StatusIndicatorsProps {
   isConnected: boolean;
-  membersCount: number;
   errors: string[];
-  isUserSpeaking: boolean;
-  isModelSpeaking: boolean;
 }
 
-export function StatusIndicators({ 
-  isConnected, 
-  membersCount, 
-  errors,
-  isUserSpeaking,
-  isModelSpeaking
+export function StatusIndicators({
+  isConnected,
+  errors
 }: StatusIndicatorsProps) {
   return (
     <div className="space-y-4">
       {/* Connection Status */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {isConnected ? (
-            <Wifi className="w-4 h-4 text-indicator-active" />
-          ) : (
-            <WifiOff className="w-4 h-4 text-muted-foreground" />
-          )}
-          <span className="text-xs uppercase tracking-wider text-muted-foreground">
-            {isConnected ? 'Connected' : 'Demo Mode'}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Users className="w-4 h-4 text-muted-foreground" />
-          <span className="panel-value text-sm">{membersCount}</span>
-        </div>
+      <div className="flex items-center gap-2">
+        {isConnected ? (
+          <Wifi className="w-4 h-4 text-indicator-active" />
+        ) : (
+          <WifiOff className="w-4 h-4 text-muted-foreground" />
+        )}
+        <span className="text-xs uppercase tracking-wider text-muted-foreground">
+          {isConnected ? 'Connected' : 'Demo Mode'}
+        </span>
       </div>
 
-      {/* Activity Indicators */}
-      <div className="flex flex-wrap gap-4">
-        <Indicator label="RX" active={isUserSpeaking} variant="success" />
-        <Indicator label="TX" active={isModelSpeaking} variant="success" />
-        <Indicator label="ERR" active={errors.length > 0} variant="error" />
-      </div>
 
       {/* Error Display */}
       {errors.length > 0 && (

@@ -19,7 +19,7 @@ export function useRadioStatus(options: UseRadioStatusOptions = {}) {
 
   const fetchStatus = useCallback(async () => {
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(`${endpoint}?t=${Date.now()}`, {
         cache: 'no-store',
         headers: { 'Cache-Control': 'no-cache' }
       });

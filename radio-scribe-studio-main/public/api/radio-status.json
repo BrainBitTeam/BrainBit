@@ -1,27 +1,41 @@
 {
-  "frequency_hz": 427000000.0,
-  "bandwidth_hz": 1000000.0,
-  "waveform": "WB",
+  "frequency_hz": 300000000.0,
+  "bandwidth_hz": 25000,
+  "waveform": "NB",
   "modulation": "QAM16",
-  "power_level": "Low",
+  "power_level": "high",
   "battery_percent": 78,
   "battery_voltage": 12.6,
-  "members_count": 5,
   "errors": [],
   "last_wf_params": {
     "WB": {
-      "frequency_hz": 500000000.0,
-      "bandwidth_hz": 1000000.0,
+      "frequency_hz": 250000000.0,
+      "bandwidth_hz": 1000000,
       "modulation": "QAM16"
     },
     "NB": {
-      "frequency_hz": 50000000.0,
-      "bandwidth_hz": 25000.0
+      "frequency_hz": 200000000.0,
+      "bandwidth_hz": 25000,
+      "modulation": "QAM16"
     }
   },
-  "channel": 1,
-  "volume": 10,
-  "rx_only": true,
+  "channel": 2,
+  "volume": 4,
+  "rx_only": false,
   "led_on": false,
-  "gps_on": false
+  "gps_on": false,
+  "members": [
+    {
+      "id": "347",
+      "rssi": -78
+    },
+    {
+      "id": "247",
+      "rssi": -57
+    },
+    {
+      "id": "987",
+      "rssi": -61
+    }
+  ]
 }

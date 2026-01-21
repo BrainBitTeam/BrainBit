@@ -4,6 +4,11 @@ export interface WaveformParams {
   modulation?: string;
 }
 
+export interface Member {
+  id: string;
+  rssi: number;
+}
+
 export interface RadioStatus {
   frequency_hz: number;
   bandwidth_hz: number;
@@ -12,7 +17,6 @@ export interface RadioStatus {
   power_level: string;
   battery_percent: number;
   battery_voltage: number;
-  members_count: number;
   errors: string[];
   last_wf_params: {
     WB: WaveformParams;
@@ -23,6 +27,7 @@ export interface RadioStatus {
   rx_only: boolean;
   led_on: boolean;
   gps_on: boolean;
+  members: Member[];
 }
 
 export interface VoiceActivity {
@@ -40,7 +45,6 @@ export const DEFAULT_RADIO_STATUS: RadioStatus = {
   power_level: "high",
   battery_percent: 78,
   battery_voltage: 12.60,
-  members_count: 5,
   errors: [],
   last_wf_params: {
     WB: { frequency_hz: 500e6, bandwidth_hz: 1e6, modulation: "QAM16" },
@@ -50,7 +54,8 @@ export const DEFAULT_RADIO_STATUS: RadioStatus = {
   volume: 10,
   rx_only: true,
   led_on: false,
-  gps_on: false
+  gps_on: false,
+  members: []
 };
 
 // Format helpers

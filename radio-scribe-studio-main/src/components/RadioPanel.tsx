@@ -53,7 +53,7 @@ export function Indicator({ label, active, variant = "success", icon }: Indicato
   return (
     <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-secondary/50 border border-border">
       {icon && <span className={active ? "text-primary" : "text-muted-foreground"}>{icon}</span>}
-      <div className={`indicator-light ${variantClasses[variant]} ${active ? "blink" : ""}`} />
+      <div className={`indicator-light ${variantClasses[variant]}`} />
       <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
       <span className={`text-xs font-medium ${active ? "text-primary" : "text-muted-foreground"}`}>
         {active ? "ON" : "OFF"}
