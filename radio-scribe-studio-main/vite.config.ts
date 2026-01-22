@@ -12,7 +12,9 @@ function serveRadioState(): Plugin {
     name: "serve-radio-state",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url === "/api/radio-status.json") {
+        // Strip query params for URL matching (cache-busting params like ?t=...)
+        const urlPath = req.url?.split('?')[0];
+        if (urlPath === "/api/radio-status.json") {
           // Handle GET - read the file
           if (req.method === "GET") {
             try {
