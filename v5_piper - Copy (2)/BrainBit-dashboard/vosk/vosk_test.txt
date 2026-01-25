@@ -1,0 +1,69 @@
+
+vosk test from reset: 
+
+1. config ip:
+sudo ifconfig eth0 192.168.1.11 netmask 255.255.255.0 up
+
+2. creating test wav  file to vosk:
+arecord -D hw:1,0 -d 5 -f S16_LE -r 16000 -c 1 /home/root/test.wav
+
+make sure the test.wav was created:
+ls -lh /home/root/test.wav
+
+3. run vosk test
+python3 /home/root/check_vosk.py /home/root/test.wav
+
+4. run hotword
+python3 /home/root/hotword_test.py
+
+
+
+for VAD: 
+we're using webrtcvad - detect human sound.
+
+Feature			,Voice Activity Detection (VAD)				,Hotword / Wake Word Detection
+Goal,			Is anyone talking?,							Did they say this specific word?
+Output,			True (Speech) / False (Silence),			Trigger (Match) / No Trigger
+Logic,			"Signal processing (energy, pitch)"			,Neural Network (pattern matching)
+Your Project,	WebRTC VAD,									Vosk (when configured for specific keywords)
+
+radio command test:
+
+move python files from tmp folder to home/root:
+mv /tmp/*.py /home/root/
+
+1. Record a long test:
+arecord -D hw:1,0 -d 6 -f S16_LE -r 16000 -c 1 /home/root/test.wav
+
+2.Run the script:
+python3 /home/root/radio_command.py
+
+
+hotword test:
+radio_command.py:
+
+1. Increase the ALSA Buffer Size
+--buffer-size=32768: Increases the amount of audio stored in the hardware buffer.
+
+
+arecord -D hw:1,0 -f S16_LE -r 16000 -c 1 -t raw --buffer-size=32768 | python3 -u /home/root/radio_command.py
+
+
+command with delay for radio_command with hotword
+(sleep 2; arecord -D hw:1,0 -f S16_LE -r 16000 -c 1 -t raw -B 1000000) | python3 -u /home/root/radio_command_w_wake_word.py
+
+shorter delay
+(sleep 0.5; arecord -D hw:1,0 -f S16_LE -r 16000 -c 1 -t raw -B 200000) | python3 -u /home/root/radio_command_w_wake_word.py | tee /home/root/vosk_output.txt
+
+eSpeak test
+arecord -D hw:1,0 -f S16_LE -r 16000 -c 1 -t raw | python3 -u /home/root/eSpeak_test.py
+
+#(sleep 0.5; arecord -D hw:1,0 -f S16_LE -r 16000 -c 1 -t raw -B 500000) | python3 -u /home/root/test_tts_loop.py
+(sleep 0.5; arecord -D plughw:1,0 -f S16_LE -r 16000 -c 1 -t raw -B 500000) | python3 -u /home/root/test_tts_loop.py
+
+
+echo_test.py
+(sleep 1; arecord -D plughw:1,0 -f S16_LE -r 16000 -c 1 -t raw -B 500000) | python3 -u /home/root/echo_test.py
+
+test with faster
+arecord -D hw:1,0 -f S16_LE -c 1 -r 16000 -t raw --buffer-time=50000 | python3 test_tts_loop.py
